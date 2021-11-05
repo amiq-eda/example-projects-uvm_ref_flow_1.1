@@ -1,0 +1,10 @@
+set_cpf_version 1.1
+set_hierarchy_separator "/"
+
+set_design apb_subsystem_top -testbench
+
+set_instance u_socv
+set_instance i_apb_subsystem
+source cpf/apb_subsystem_wkshp.cpf
+
+end_design

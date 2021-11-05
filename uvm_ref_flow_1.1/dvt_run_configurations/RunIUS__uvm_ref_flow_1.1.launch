@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="ro.amiq.dvt.launch.DVTGenericLaunchConfigurationType">
+<stringAttribute key="debug target use" value="ro.amiq.vlogdt.VlogNature"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="uvm_ref_flow_1.1"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+<mapAttribute key="org.eclipse.debug.core.environmentVariables">
+<mapEntry key="UVM_HOME" value="${env_var:DVT_PREDEFINED_PROJECTS}/libs/uvm-1.1b"/>
+<mapEntry key="UVM_REF_HOME" value="${workspace_loc:/uvm_ref_flow_1.1}"/>
+<mapEntry key="UVM_RGM_HOME" value="${project_loc}/uvm_rgm_2.5"/>
+</mapAttribute>
+<stringAttribute key="process_factory_id" value="ro.amiq.dvt.launch.DVTProcessFactory"/>
+<stringAttribute key="ro.amiq.dvt.launch.FILTERS_KIND" value="IUS,UVM,"/>
+<stringAttribute key="ro.amiq.dvt.launch.GENERIC_COMMAND_ATTR" value="sh -c &quot;./demo.sh ${dvt_dialog_prompt:dvt_run_configurations/dialog.swtxml}&quot;"/>
+<stringAttribute key="ro.amiq.dvt.launch.LAUNCH_MODE" value="BOTH"/>
+<stringAttribute key="ro.amiq.dvt.launch.LAUNCH_PATTERNS" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&lt;patterns/&gt;"/>
+<stringAttribute key="ro.amiq.dvt.launch.PROJECT_ATTR" value="uvm_ref_flow_1.1"/>
+<stringAttribute key="ro.amiq.dvt.launch.WORKING_DIRECTORY" value="${workspace_loc:/uvm_ref_flow_1.1/soc_verification_lib/sv_cb_ex_lib/apb_subsystem}"/>
+<booleanAttribute key="ro.amiq.dvt.launch.WORKING_SET_LINK_FILTER" value="false"/>
+</launchConfiguration>

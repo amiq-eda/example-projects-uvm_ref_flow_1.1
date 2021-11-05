@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Composite xmlns="http://www.swtxml.com/swt" 
+           xmlns:sv="http://www.dvteclipse.com/xmlns/customdialog/sv" 
+           xmlns:dvt="http://www.dvteclipse.com/xmlns/customdialog" 
+           id="Run APB Subsystem Test"
+	         layout="layout:grid;">
+
+	<Composite layout="layout:grid;"
+		          layoutData="horizontalAlignment:FILL; 
+                          verticalAlignment:FILL;   
+                          grabExcessHorizontalSpace:true;
+                          grabExcessVerticalSpace:true;
+                          widthHint:600;
+                          heightHint:350;">
+
+		<Composite layout="layout:grid;numColumns:2;" 
+		           layoutData="horizontalAlignment:FILL;
+		                       verticalAlignment:FILL;
+		                       grabExcessHorizontalSpace:true;
+		                       grabExcessVerticalSpace:true;">
+
+			<sv:ClassSelector id=" -test " 
+			                  question="Test Name: " 
+			                  baseClassName="uvm_test"
+				                layoutData="horizontalAlignment:FILL; 
+                                    verticalAlignment:FILL;  
+                                    grabExcessHorizontalSpace:true;
+                                    grabExcessVerticalSpace:true;" />
+
+			<Composite layout="layout:grid;" 
+			           layoutData="horizontalAlignment:FILL; 
+                             verticalAlignment:FILL;">
+
+				<Group text="Verbosity: " 
+				       layout="layout:fill;type:VERTICAL;" 
+				       layoutData="horizontalAlignment:FILL; 
+                           verticalAlignment:TOP;  
+                           grabExcessVerticalSpace:true;">
+					<Button style="RADIO" id=" -v UVM_NONE " text="UVM_NONE" />
+					<Button style="RADIO" id=" -v UVM_LOW " text="UVM_LOW" />
+					<Button style="RADIO" id=" -v UVM_MEDIUM " text="UVM_MEDIUM" />
+					<Button style="RADIO" id=" -v UVM_HIGH " text="UVM_HIGH" selection="true" />
+					<Button style="RADIO" id=" -v UVM_FULL " text="UVM_FULL" />
+					<Button style="RADIO" id=" -v UVM_DEBUG " text="UVM_DEBUG" />
+				</Group>
+
+				<Group text="Run Mode: " 
+				       layout="layout:fill;
+				               type:VERTICAL;" 
+				       layoutData="horizontalAlignment:FILL; 
+                           verticalAlignment:TOP;  
+                           grabExcessVerticalSpace:true;">
+					<Button style="RADIO" id=" -run_mode test " text="Batch" selection="true" />
+					<Button style="RADIO" id=" -run_mode test_gui " text="GUI" />
+				</Group>
+
+			</Composite>
+		</Composite>
+
+		<Group text="Seed: " 
+		       layout="layout:fill;
+		               type:VERTICAL;" 
+		       layoutData="horizontalAlignment:FILL; 
+                       verticalAlignment:TOP;">
+			<Text id=" -seed " style="BORDER" text="" />
+		</Group>
+	</Composite>
+</Composite>
+     

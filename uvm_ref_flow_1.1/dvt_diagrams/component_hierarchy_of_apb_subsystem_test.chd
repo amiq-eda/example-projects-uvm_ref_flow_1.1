@@ -1,0 +1,399 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<component-hierarchy version='1'>
+	<uvm-component name='uvm_test_top' type='apb_subsystem_test' sv-type='apb_subsystem_test'>
+		<uvm-component name='ve' type='apb_subsystem_tb' sv-type='apb_subsystem_tb'>
+			<uvm-component name='ahb0' type='ahb_env' sv-type='ahb_env'>
+				<vif name='vif' sv-type='ahb_if'/>
+				<uvm-component name='master_agent' type='ahb_master_agent' sv-type='ahb_master_agent'>
+					<uvm-component name='driver' type='ahb_master_driver' sv-type='ahb_master_driver'>
+						<vif name='vif' sv-type='ahb_if'/>
+						<uvm-port name='rsp_port' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(ahb_pkg::ahb_transfer)'/>
+						<uvm-port name='sqr_pull_port' type='uvm_seq_item_pull_port' kind='port' sv-type='uvm_seq_item_pull_port#(ahb_pkg::ahb_transfer,ahb_pkg::ahb_transfer)'/>
+					</uvm-component>
+					<uvm-component name='monitor' type='ahb_monitor' sv-type='ahb_monitor'>
+						<uvm-port name='ahb_transfer_out' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(ahb_pkg::ahb_transfer)'/>
+						<uvm-port name='item_collected_port' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(ahb_pkg::ahb_transfer)'/>
+					</uvm-component>
+					<uvm-component name='sequencer' type='ahb_master_sequencer' sv-type='ahb_master_sequencer'>
+						<uvm-component name='req_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_tlm_fifo#(ahb_pkg::ahb_transfer)'>
+							<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(ahb_pkg::ahb_transfer)'/>
+							<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(ahb_pkg::ahb_transfer,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+							<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(ahb_pkg::ahb_transfer)'/>
+							<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(ahb_pkg::ahb_transfer,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+						</uvm-component>
+						<uvm-port name='rsp_export' type='uvm_analysis_export' kind='export' sv-type='uvm_analysis_export#(ahb_pkg::ahb_transfer)'/>
+						<uvm-port name='seq_item_export' type='uvm_seq_item_pull_imp' kind='implementation' sv-type='uvm_seq_item_pull_imp#(ahb_pkg::ahb_transfer,ahb_pkg::ahb_transfer,uvm_pkg::uvm_sequencer#(ahb_pkg::ahb_transfer,REQ))'/>
+						<uvm-component name='sqr_rsp_analysis_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_sequencer_analysis_fifo#(ahb_pkg::ahb_transfer)'>
+							<uvm-port name='analysis_export' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(ahb_pkg::ahb_transfer,uvm_pkg::uvm_sequencer_analysis_fifo#(RSP))'/>
+							<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(ahb_pkg::ahb_transfer)'/>
+							<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(ahb_pkg::ahb_transfer,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+							<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(ahb_pkg::ahb_transfer)'/>
+							<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(ahb_pkg::ahb_transfer,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+						</uvm-component>
+					</uvm-component>
+				</uvm-component>
+			</uvm-component>
+			<uvm-component name='ahb_predictor' type='uvm_component' sv-type='uvm_reg_predictor#(ahb_pkg::ahb_transfer)'>
+				<uvm-port name='bus_in' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(ahb_pkg::ahb_transfer,uvm_pkg::uvm_reg_predictor#(ahb_pkg::ahb_transfer))'/>
+				<uvm-port name='reg_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_reg_item)'/>
+			</uvm-component>
+			<uvm-component name='apb0' type='apb_env' sv-type='apb_env'>
+				<vif name='vif' sv-type='apb_if'/>
+				<uvm-component name='bus_collector' type='apb_collector' sv-type='apb_collector'>
+					<vif name='vif' sv-type='apb_if'/>
+					<uvm-port name='addr_trans_export' type='uvm_blocking_peek_imp' kind='implementation' sv-type='uvm_blocking_peek_imp#(apb_pkg::apb_transfer,apb_pkg::apb_collector)'/>
+					<uvm-port name='item_collected_port' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(apb_pkg::apb_transfer)'/>
+				</uvm-component>
+				<uvm-component name='bus_monitor' type='apb_monitor' sv-type='apb_monitor'>
+					<uvm-port name='addr_trans_export' type='uvm_blocking_peek_imp' kind='implementation' sv-type='uvm_blocking_peek_imp#(apb_pkg::apb_transfer,apb_pkg::apb_monitor)'/>
+					<uvm-port name='addr_trans_port' type='uvm_blocking_peek_port' kind='port' sv-type='uvm_blocking_peek_port#(apb_pkg::apb_transfer)'/>
+					<uvm-port name='coll_mon_port' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(apb_pkg::apb_transfer,apb_pkg::apb_monitor)'/>
+					<uvm-port name='item_collected_port' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(apb_pkg::apb_transfer)'/>
+				</uvm-component>
+				<uvm-component name='master' type='apb_master_agent' sv-type='apb_master_agent'/>
+				<uvm-component name='slave[0]' type='apb_slave_agent' sv-type='apb_slave_agent'>
+					<vif name='vif' sv-type='apb_if'/>
+				</uvm-component>
+				<uvm-component name='slave[1]' type='apb_slave_agent' sv-type='apb_slave_agent'>
+					<vif name='vif' sv-type='apb_if'/>
+				</uvm-component>
+				<uvm-component name='slave[2]' type='apb_slave_agent' sv-type='apb_slave_agent'>
+					<vif name='vif' sv-type='apb_if'/>
+				</uvm-component>
+				<uvm-component name='slave[3]' type='apb_slave_agent' sv-type='apb_slave_agent'>
+					<vif name='vif' sv-type='apb_if'/>
+				</uvm-component>
+			</uvm-component>
+			<uvm-component name='apb_ss_env' type='apb_subsystem_env' sv-type='apb_subsystem_env'>
+				<uvm-port name='apb_in' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(ahb_pkg::ahb_transfer,apb_subsystem_pkg::apb_subsystem_env)'/>
+				<uvm-component name='apb_uart0' type='uart_ctrl_env' sv-type='uart_ctrl_env'>
+					<uvm-port name='apb_in' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(apb_pkg::apb_transfer,uart_ctrl_pkg::uart_ctrl_env)'/>
+					<uvm-component name='apb_predictor' type='uvm_component' sv-type='uvm_reg_predictor#(apb_pkg::apb_transfer)'>
+						<uvm-port name='bus_in' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(apb_pkg::apb_transfer,uvm_pkg::uvm_reg_predictor#(apb_pkg::apb_transfer))'/>
+						<uvm-port name='reg_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_reg_item)'/>
+					</uvm-component>
+					<uvm-component name='monitor' type='uart_ctrl_monitor' sv-type='uart_ctrl_monitor'>
+						<vif name='vif' sv-type='uart_ctrl_internal_if'/>
+						<uvm-port name='apb_in' type='uvm_analysis_imp_apb' kind='implementation' sv-type='uvm_analysis_imp_apb#(apb_pkg::apb_transfer,uart_ctrl_pkg::uart_ctrl_monitor)'/>
+						<uvm-port name='apb_out' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(apb_pkg::apb_transfer)'/>
+						<uvm-component name='rx_scbd' type='uart_ctrl_rx_scbd' sv-type='uart_ctrl_rx_scbd'>
+							<uvm-port name='apb_add' type='uvm_analysis_imp_apb' kind='implementation' sv-type='uvm_analysis_imp_apb#(apb_pkg::apb_transfer,uart_ctrl_pkg::uart_ctrl_rx_scbd)'/>
+							<uvm-port name='uart_match' type='uvm_analysis_imp_uart' kind='implementation' sv-type='uvm_analysis_imp_uart#(uart_pkg::uart_frame,uart_ctrl_pkg::uart_ctrl_rx_scbd)'/>
+						</uvm-component>
+						<uvm-component name='tx_scbd' type='uart_ctrl_tx_scbd' sv-type='uart_ctrl_tx_scbd'>
+							<uvm-port name='apb_match' type='uvm_analysis_imp_apb' kind='implementation' sv-type='uvm_analysis_imp_apb#(apb_pkg::apb_transfer,uart_ctrl_pkg::uart_ctrl_tx_scbd)'/>
+							<uvm-port name='uart_add' type='uvm_analysis_imp_uart' kind='implementation' sv-type='uvm_analysis_imp_uart#(uart_pkg::uart_frame,uart_ctrl_pkg::uart_ctrl_tx_scbd)'/>
+						</uvm-component>
+						<uvm-component name='uart_cover' type='uart_ctrl_cover' sv-type='uart_ctrl_cover'>
+							<vif name='vif' sv-type='uart_ctrl_internal_if'/>
+						</uvm-component>
+						<uvm-port name='uart_rx_in' type='uvm_analysis_imp_rx' kind='implementation' sv-type='uvm_analysis_imp_rx#(uart_pkg::uart_frame,uart_ctrl_pkg::uart_ctrl_monitor)'/>
+						<uvm-port name='uart_rx_out' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+						<uvm-port name='uart_tx_in' type='uvm_analysis_imp_tx' kind='implementation' sv-type='uvm_analysis_imp_tx#(uart_pkg::uart_frame,uart_ctrl_pkg::uart_ctrl_monitor)'/>
+						<uvm-port name='uart_tx_out' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+					</uvm-component>
+					<uvm-component name='reg_sequencer' type='uart_ctrl_reg_sequencer' sv-type='uart_ctrl_reg_sequencer'>
+						<uvm-component name='req_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_tlm_fifo#(uvm_pkg::uvm_sequence_item)'>
+							<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_sequence_item)'/>
+							<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+							<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_sequence_item)'/>
+							<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+						</uvm-component>
+						<uvm-port name='rsp_export' type='uvm_analysis_export' kind='export' sv-type='uvm_analysis_export#(uvm_pkg::uvm_sequence_item)'/>
+						<uvm-port name='seq_item_export' type='uvm_seq_item_pull_imp' kind='implementation' sv-type='uvm_seq_item_pull_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_sequencer#(uvm_sequence_item,REQ))'/>
+						<uvm-component name='sqr_rsp_analysis_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_sequencer_analysis_fifo#(uvm_pkg::uvm_sequence_item)'>
+							<uvm-port name='analysis_export' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_sequencer_analysis_fifo#(RSP))'/>
+							<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_sequence_item)'/>
+							<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+							<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_sequence_item)'/>
+							<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+						</uvm-component>
+					</uvm-component>
+					<uvm-port name='uart_cfg_out' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_config)'/>
+				</uvm-component>
+				<uvm-component name='apb_uart1' type='uart_ctrl_env' sv-type='uart_ctrl_env'>
+					<uvm-port name='apb_in' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(apb_pkg::apb_transfer,uart_ctrl_pkg::uart_ctrl_env)'/>
+					<uvm-component name='apb_predictor' type='uvm_component' sv-type='uvm_reg_predictor#(apb_pkg::apb_transfer)'>
+						<uvm-port name='bus_in' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(apb_pkg::apb_transfer,uvm_pkg::uvm_reg_predictor#(apb_pkg::apb_transfer))'/>
+						<uvm-port name='reg_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_reg_item)'/>
+					</uvm-component>
+					<uvm-component name='monitor' type='uart_ctrl_monitor' sv-type='uart_ctrl_monitor'>
+						<vif name='vif' sv-type='uart_ctrl_internal_if'/>
+						<uvm-port name='apb_in' type='uvm_analysis_imp_apb' kind='implementation' sv-type='uvm_analysis_imp_apb#(apb_pkg::apb_transfer,uart_ctrl_pkg::uart_ctrl_monitor)'/>
+						<uvm-port name='apb_out' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(apb_pkg::apb_transfer)'/>
+						<uvm-component name='rx_scbd' type='uart_ctrl_rx_scbd' sv-type='uart_ctrl_rx_scbd'>
+							<uvm-port name='apb_add' type='uvm_analysis_imp_apb' kind='implementation' sv-type='uvm_analysis_imp_apb#(apb_pkg::apb_transfer,uart_ctrl_pkg::uart_ctrl_rx_scbd)'/>
+							<uvm-port name='uart_match' type='uvm_analysis_imp_uart' kind='implementation' sv-type='uvm_analysis_imp_uart#(uart_pkg::uart_frame,uart_ctrl_pkg::uart_ctrl_rx_scbd)'/>
+						</uvm-component>
+						<uvm-component name='tx_scbd' type='uart_ctrl_tx_scbd' sv-type='uart_ctrl_tx_scbd'>
+							<uvm-port name='apb_match' type='uvm_analysis_imp_apb' kind='implementation' sv-type='uvm_analysis_imp_apb#(apb_pkg::apb_transfer,uart_ctrl_pkg::uart_ctrl_tx_scbd)'/>
+							<uvm-port name='uart_add' type='uvm_analysis_imp_uart' kind='implementation' sv-type='uvm_analysis_imp_uart#(uart_pkg::uart_frame,uart_ctrl_pkg::uart_ctrl_tx_scbd)'/>
+						</uvm-component>
+						<uvm-component name='uart_cover' type='uart_ctrl_cover' sv-type='uart_ctrl_cover'>
+							<vif name='vif' sv-type='uart_ctrl_internal_if'/>
+						</uvm-component>
+						<uvm-port name='uart_rx_in' type='uvm_analysis_imp_rx' kind='implementation' sv-type='uvm_analysis_imp_rx#(uart_pkg::uart_frame,uart_ctrl_pkg::uart_ctrl_monitor)'/>
+						<uvm-port name='uart_rx_out' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+						<uvm-port name='uart_tx_in' type='uvm_analysis_imp_tx' kind='implementation' sv-type='uvm_analysis_imp_tx#(uart_pkg::uart_frame,uart_ctrl_pkg::uart_ctrl_monitor)'/>
+						<uvm-port name='uart_tx_out' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+					</uvm-component>
+					<uvm-component name='reg_sequencer' type='uart_ctrl_reg_sequencer' sv-type='uart_ctrl_reg_sequencer'>
+						<uvm-component name='req_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_tlm_fifo#(uvm_pkg::uvm_sequence_item)'>
+							<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_sequence_item)'/>
+							<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+							<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_sequence_item)'/>
+							<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+						</uvm-component>
+						<uvm-port name='rsp_export' type='uvm_analysis_export' kind='export' sv-type='uvm_analysis_export#(uvm_pkg::uvm_sequence_item)'/>
+						<uvm-port name='seq_item_export' type='uvm_seq_item_pull_imp' kind='implementation' sv-type='uvm_seq_item_pull_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_sequencer#(uvm_sequence_item,REQ))'/>
+						<uvm-component name='sqr_rsp_analysis_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_sequencer_analysis_fifo#(uvm_pkg::uvm_sequence_item)'>
+							<uvm-port name='analysis_export' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_sequencer_analysis_fifo#(RSP))'/>
+							<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_sequence_item)'/>
+							<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+							<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_sequence_item)'/>
+							<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+						</uvm-component>
+					</uvm-component>
+					<uvm-port name='uart_cfg_out' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_config)'/>
+				</uvm-component>
+				<uvm-port name='gpio_csr_out' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(gpio_pkg::gpio_csr)'/>
+				<uvm-component name='monitor' type='apb_subsystem_monitor' sv-type='apb_subsystem_monitor'>
+					<uvm-port name='dut_csr_port_in' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(spi_pkg::spi_csr,apb_subsystem_pkg::apb_subsystem_monitor)'/>
+					<uvm-component name='rx_scbd' type='ahb2spi_scbd' sv-type='ahb2spi_scbd'>
+						<uvm-port name='ahb_add' type='uvm_analysis_imp_ahb' kind='implementation' sv-type='uvm_analysis_imp_ahb#(ahb_pkg::ahb_transfer,apb_subsystem_pkg::ahb2spi_scbd)'/>
+						<uvm-port name='spi_match' type='uvm_analysis_imp_spi' kind='implementation' sv-type='uvm_analysis_imp_spi#(spi_pkg::spi_transfer,apb_subsystem_pkg::ahb2spi_scbd)'/>
+					</uvm-component>
+					<uvm-component name='tx_scbd' type='spi2ahb_scbd' sv-type='spi2ahb_scbd'>
+						<uvm-port name='ahb_match' type='uvm_analysis_imp_ahb' kind='implementation' sv-type='uvm_analysis_imp_ahb#(ahb_pkg::ahb_transfer,apb_subsystem_pkg::spi2ahb_scbd)'/>
+						<uvm-port name='spi_add' type='uvm_analysis_imp_spi' kind='implementation' sv-type='uvm_analysis_imp_spi#(spi_pkg::spi_transfer,apb_subsystem_pkg::spi2ahb_scbd)'/>
+					</uvm-component>
+				</uvm-component>
+				<uvm-port name='spi_csr_out' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(spi_pkg::spi_csr)'/>
+			</uvm-component>
+			<uvm-component name='gpio0' type='gpio_env' sv-type='gpio_env'>
+				<vif name='gpio_if' sv-type='gpio_if'/>
+				<uvm-component name='agents[0]' type='gpio_agent' sv-type='gpio_agent'>
+					<uvm-component name='driver' type='gpio_driver' sv-type='gpio_driver'>
+						<vif name='gpio_if' sv-type='gpio_if'/>
+						<uvm-port name='rsp_port' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(gpio_pkg::gpio_transfer)'/>
+						<uvm-port name='sqr_pull_port' type='uvm_seq_item_pull_port' kind='port' sv-type='uvm_seq_item_pull_port#(gpio_pkg::gpio_transfer,gpio_pkg::gpio_transfer)'/>
+					</uvm-component>
+					<uvm-component name='monitor' type='gpio_monitor' sv-type='gpio_monitor'>
+						<vif name='gpio_if' sv-type='gpio_if'/>
+						<uvm-port name='item_collected_port' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(gpio_pkg::gpio_transfer)'/>
+					</uvm-component>
+					<uvm-component name='sequencer' type='gpio_sequencer' sv-type='gpio_sequencer'>
+						<uvm-component name='req_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_tlm_fifo#(gpio_pkg::gpio_transfer)'>
+							<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(gpio_pkg::gpio_transfer)'/>
+							<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(gpio_pkg::gpio_transfer,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+							<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(gpio_pkg::gpio_transfer)'/>
+							<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(gpio_pkg::gpio_transfer,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+						</uvm-component>
+						<uvm-port name='rsp_export' type='uvm_analysis_export' kind='export' sv-type='uvm_analysis_export#(gpio_pkg::gpio_transfer)'/>
+						<uvm-port name='seq_item_export' type='uvm_seq_item_pull_imp' kind='implementation' sv-type='uvm_seq_item_pull_imp#(gpio_pkg::gpio_transfer,gpio_pkg::gpio_transfer,uvm_pkg::uvm_sequencer#(gpio_transfer,REQ))'/>
+						<uvm-component name='sqr_rsp_analysis_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_sequencer_analysis_fifo#(gpio_pkg::gpio_transfer)'>
+							<uvm-port name='analysis_export' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(gpio_pkg::gpio_transfer,uvm_pkg::uvm_sequencer_analysis_fifo#(RSP))'/>
+							<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(gpio_pkg::gpio_transfer)'/>
+							<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(gpio_pkg::gpio_transfer,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+							<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(gpio_pkg::gpio_transfer)'/>
+							<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(gpio_pkg::gpio_transfer,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+						</uvm-component>
+					</uvm-component>
+				</uvm-component>
+				<uvm-port name='dut_csr_port_in' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(gpio_pkg::gpio_csr,gpio_pkg::gpio_env)'/>
+			</uvm-component>
+			<uvm-component name='spi0' type='spi_env' sv-type='spi_env'>
+				<vif name='spi_if' sv-type='spi_if'/>
+				<uvm-component name='agents[0]' type='spi_agent' sv-type='spi_agent'>
+					<uvm-component name='driver' type='spi_driver' sv-type='spi_driver'>
+						<vif name='spi_if' sv-type='spi_if'/>
+						<uvm-port name='rsp_port' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(spi_pkg::spi_transfer)'/>
+						<uvm-port name='sqr_pull_port' type='uvm_seq_item_pull_port' kind='port' sv-type='uvm_seq_item_pull_port#(spi_pkg::spi_transfer,spi_pkg::spi_transfer)'/>
+					</uvm-component>
+					<uvm-component name='monitor' type='spi_monitor' sv-type='spi_monitor'>
+						<vif name='spi_if' sv-type='spi_if'/>
+						<uvm-port name='item_collected_port' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(spi_pkg::spi_transfer)'/>
+					</uvm-component>
+					<uvm-component name='sequencer' type='spi_sequencer' sv-type='spi_sequencer'>
+						<uvm-component name='req_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_tlm_fifo#(spi_pkg::spi_transfer)'>
+							<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(spi_pkg::spi_transfer)'/>
+							<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(spi_pkg::spi_transfer,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+							<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(spi_pkg::spi_transfer)'/>
+							<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(spi_pkg::spi_transfer,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+						</uvm-component>
+						<uvm-port name='rsp_export' type='uvm_analysis_export' kind='export' sv-type='uvm_analysis_export#(spi_pkg::spi_transfer)'/>
+						<uvm-port name='seq_item_export' type='uvm_seq_item_pull_imp' kind='implementation' sv-type='uvm_seq_item_pull_imp#(spi_pkg::spi_transfer,spi_pkg::spi_transfer,uvm_pkg::uvm_sequencer#(spi_transfer,REQ))'/>
+						<uvm-component name='sqr_rsp_analysis_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_sequencer_analysis_fifo#(spi_pkg::spi_transfer)'>
+							<uvm-port name='analysis_export' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(spi_pkg::spi_transfer,uvm_pkg::uvm_sequencer_analysis_fifo#(RSP))'/>
+							<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(spi_pkg::spi_transfer)'/>
+							<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(spi_pkg::spi_transfer,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+							<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(spi_pkg::spi_transfer)'/>
+							<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(spi_pkg::spi_transfer,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+						</uvm-component>
+					</uvm-component>
+				</uvm-component>
+				<uvm-port name='dut_csr_port_in' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(spi_pkg::spi_csr,spi_pkg::spi_env)'/>
+			</uvm-component>
+			<uvm-component name='uart0' type='uart_env' sv-type='uart_env'>
+				<vif name='vif' sv-type='uart_if'/>
+				<uvm-component name='Rx' type='uart_rx_agent' sv-type='uart_rx_agent'>
+					<uvm-component name='monitor' type='uart_rx_monitor' sv-type='uart_rx_monitor'>
+						<uvm-port name='frame_collected_port' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+					</uvm-component>
+				</uvm-component>
+				<uvm-component name='Tx' type='uart_tx_agent' sv-type='uart_tx_agent'>
+					<uvm-component name='driver' type='uart_tx_driver' sv-type='uart_tx_driver'>
+						<vif name='vif' sv-type='uart_if'/>
+						<uvm-port name='rsp_port' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+						<uvm-port name='sqr_pull_port' type='uvm_seq_item_pull_port' kind='port' sv-type='uvm_seq_item_pull_port#(uart_pkg::uart_frame,uart_pkg::uart_frame)'/>
+					</uvm-component>
+					<uvm-component name='monitor' type='uart_tx_monitor' sv-type='uart_tx_monitor'>
+						<uvm-port name='frame_collected_port' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+					</uvm-component>
+					<uvm-component name='sequencer' type='uart_sequencer' sv-type='uart_sequencer'>
+						<uvm-component name='req_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_tlm_fifo#(uart_pkg::uart_frame)'>
+							<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+							<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(uart_pkg::uart_frame,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+							<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+							<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(uart_pkg::uart_frame,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+						</uvm-component>
+						<uvm-port name='rsp_export' type='uvm_analysis_export' kind='export' sv-type='uvm_analysis_export#(uart_pkg::uart_frame)'/>
+						<uvm-port name='seq_item_export' type='uvm_seq_item_pull_imp' kind='implementation' sv-type='uvm_seq_item_pull_imp#(uart_pkg::uart_frame,uart_pkg::uart_frame,uvm_pkg::uvm_sequencer#(uart_pkg::uart_frame,REQ))'/>
+						<uvm-component name='sqr_rsp_analysis_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_sequencer_analysis_fifo#(uart_pkg::uart_frame)'>
+							<uvm-port name='analysis_export' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(uart_pkg::uart_frame,uvm_pkg::uvm_sequencer_analysis_fifo#(RSP))'/>
+							<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+							<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(uart_pkg::uart_frame,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+							<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+							<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(uart_pkg::uart_frame,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+						</uvm-component>
+					</uvm-component>
+				</uvm-component>
+				<uvm-port name='dut_cfg_port_in' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(uart_pkg::uart_config,uart_pkg::uart_env)'/>
+			</uvm-component>
+			<uvm-component name='uart1' type='uart_env' sv-type='uart_env'>
+				<vif name='vif' sv-type='uart_if'/>
+				<uvm-component name='Rx' type='uart_rx_agent' sv-type='uart_rx_agent'>
+					<uvm-component name='monitor' type='uart_rx_monitor' sv-type='uart_rx_monitor'>
+						<uvm-port name='frame_collected_port' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+					</uvm-component>
+				</uvm-component>
+				<uvm-component name='Tx' type='uart_tx_agent' sv-type='uart_tx_agent'>
+					<uvm-component name='driver' type='uart_tx_driver' sv-type='uart_tx_driver'>
+						<vif name='vif' sv-type='uart_if'/>
+						<uvm-port name='rsp_port' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+						<uvm-port name='sqr_pull_port' type='uvm_seq_item_pull_port' kind='port' sv-type='uvm_seq_item_pull_port#(uart_pkg::uart_frame,uart_pkg::uart_frame)'/>
+					</uvm-component>
+					<uvm-component name='monitor' type='uart_tx_monitor' sv-type='uart_tx_monitor'>
+						<uvm-port name='frame_collected_port' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+					</uvm-component>
+					<uvm-component name='sequencer' type='uart_sequencer' sv-type='uart_sequencer'>
+						<uvm-component name='req_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_tlm_fifo#(uart_pkg::uart_frame)'>
+							<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+							<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(uart_pkg::uart_frame,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+							<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+							<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(uart_pkg::uart_frame,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+						</uvm-component>
+						<uvm-port name='rsp_export' type='uvm_analysis_export' kind='export' sv-type='uvm_analysis_export#(uart_pkg::uart_frame)'/>
+						<uvm-port name='seq_item_export' type='uvm_seq_item_pull_imp' kind='implementation' sv-type='uvm_seq_item_pull_imp#(uart_pkg::uart_frame,uart_pkg::uart_frame,uvm_pkg::uvm_sequencer#(uart_pkg::uart_frame,REQ))'/>
+						<uvm-component name='sqr_rsp_analysis_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_sequencer_analysis_fifo#(uart_pkg::uart_frame)'>
+							<uvm-port name='analysis_export' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(uart_pkg::uart_frame,uvm_pkg::uvm_sequencer_analysis_fifo#(RSP))'/>
+							<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+							<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(uart_pkg::uart_frame,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+							<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uart_pkg::uart_frame)'/>
+							<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(uart_pkg::uart_frame,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+						</uvm-component>
+					</uvm-component>
+				</uvm-component>
+				<uvm-port name='dut_cfg_port_in' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(uart_pkg::uart_config,uart_pkg::uart_env)'/>
+			</uvm-component>
+			<uvm-component name='virtual_sequencer' type='apb_subsystem_virtual_sequencer' sv-type='apb_subsystem_virtual_sequencer'>
+				<uvm-component name='req_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_tlm_fifo#(uvm_pkg::uvm_sequence_item)'>
+					<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_sequence_item)'/>
+					<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+					<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_sequence_item)'/>
+					<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+				</uvm-component>
+				<uvm-port name='rsp_export' type='uvm_analysis_export' kind='export' sv-type='uvm_analysis_export#(uvm_pkg::uvm_sequence_item)'/>
+				<uvm-port name='seq_item_export' type='uvm_seq_item_pull_imp' kind='implementation' sv-type='uvm_seq_item_pull_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_sequencer#(uvm_sequence_item,REQ))'/>
+				<uvm-component name='sqr_rsp_analysis_fifo' type='uvm_tlm_fifo #(T)' sv-type='uvm_sequencer_analysis_fifo#(uvm_pkg::uvm_sequence_item)'>
+					<uvm-port name='analysis_export' type='uvm_analysis_imp' kind='implementation' sv-type='uvm_analysis_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_sequencer_analysis_fifo#(RSP))'/>
+					<uvm-port name='get_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_sequence_item)'/>
+					<uvm-port name='get_peek_export' type='uvm_get_peek_imp' kind='implementation' sv-type='uvm_get_peek_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+					<uvm-port name='put_ap' type='uvm_analysis_port' kind='port' sv-type='uvm_analysis_port#(uvm_pkg::uvm_sequence_item)'/>
+					<uvm-port name='put_export' type='uvm_put_imp' kind='implementation' sv-type='uvm_put_imp#(uvm_pkg::uvm_sequence_item,uvm_pkg::uvm_tlm_fifo_base#(T))'/>
+				</uvm-component>
+			</uvm-component>
+		</uvm-component>
+	</uvm-component>
+	<design>
+		<interface name='apb_subsystem_top.ahbi_m0' sv-type='ahb_if'/>
+		<interface name='apb_subsystem_top.apbi_mo' sv-type='apb_if'/>
+		<interface name='apb_subsystem_top.uart_int0' sv-type='uart_ctrl_internal_if'/>
+		<interface name='apb_subsystem_top.uart_int1' sv-type='uart_ctrl_internal_if'/>
+		<interface name='apb_subsystem_top.gpio_s0' sv-type='gpio_if'/>
+		<interface name='apb_subsystem_top.spi_s0' sv-type='spi_if'/>
+		<interface name='apb_subsystem_top.uart_s0' sv-type='uart_if'/>
+		<interface name='apb_subsystem_top.uart_s1' sv-type='uart_if'/>
+	</design>
+	<connections>
+		<connection source='uvm_test_top.ve.ahb0.vif' destination='design.apb_subsystem_top.ahbi_m0'/>
+		<connection source='uvm_test_top.ve.ahb0.master_agent.driver.vif' destination='design.apb_subsystem_top.ahbi_m0'/>
+		<connection source='uvm_test_top.ve.ahb0.master_agent.driver.sqr_pull_port' destination='uvm_test_top.ve.ahb0.master_agent.sequencer.seq_item_export' />
+		<connection source='uvm_test_top.ve.ahb0.master_agent.monitor.ahb_transfer_out' destination='uvm_test_top.ve.apb_ss_env.apb_in' />
+		<connection source='uvm_test_top.ve.ahb0.master_agent.monitor.ahb_transfer_out' destination='uvm_test_top.ve.apb_ss_env.monitor.rx_scbd.ahb_add' />
+		<connection source='uvm_test_top.ve.ahb0.master_agent.sequencer.rsp_export' destination='uvm_test_top.ve.ahb0.master_agent.sequencer.sqr_rsp_analysis_fifo.analysis_export' />
+		<connection source='uvm_test_top.ve.apb0.vif' destination='design.apb_subsystem_top.apbi_mo'/>
+		<connection source='uvm_test_top.ve.apb0.bus_collector.vif' destination='design.apb_subsystem_top.apbi_mo'/>
+		<connection source='uvm_test_top.ve.apb0.bus_collector.item_collected_port' destination='uvm_test_top.ve.apb0.bus_monitor.coll_mon_port' />
+		<connection source='uvm_test_top.ve.apb0.bus_monitor.addr_trans_port' destination='uvm_test_top.ve.apb0.bus_collector.addr_trans_export' />
+		<connection source='uvm_test_top.ve.apb0.bus_monitor.item_collected_port' destination='uvm_test_top.ve.apb_ss_env.apb_uart0.apb_in' />
+		<connection source='uvm_test_top.ve.apb0.bus_monitor.item_collected_port' destination='uvm_test_top.ve.apb_ss_env.apb_uart0.monitor.apb_in' />
+		<connection source='uvm_test_top.ve.apb0.bus_monitor.item_collected_port' destination='uvm_test_top.ve.apb_ss_env.apb_uart1.apb_in' />
+		<connection source='uvm_test_top.ve.apb0.bus_monitor.item_collected_port' destination='uvm_test_top.ve.apb_ss_env.apb_uart1.monitor.apb_in' />
+		<connection source='uvm_test_top.ve.apb0.slave[0].vif' destination='design.apb_subsystem_top.apbi_mo'/>
+		<connection source='uvm_test_top.ve.apb0.slave[1].vif' destination='design.apb_subsystem_top.apbi_mo'/>
+		<connection source='uvm_test_top.ve.apb0.slave[2].vif' destination='design.apb_subsystem_top.apbi_mo'/>
+		<connection source='uvm_test_top.ve.apb0.slave[3].vif' destination='design.apb_subsystem_top.apbi_mo'/>
+		<connection source='uvm_test_top.ve.apb_ss_env.apb_uart0.monitor.vif' destination='design.apb_subsystem_top.uart_int0'/>
+		<connection source='uvm_test_top.ve.apb_ss_env.apb_uart0.monitor.apb_out' destination='uvm_test_top.ve.apb_ss_env.apb_uart0.monitor.rx_scbd.apb_add' />
+		<connection source='uvm_test_top.ve.apb_ss_env.apb_uart0.monitor.apb_out' destination='uvm_test_top.ve.apb_ss_env.apb_uart0.monitor.tx_scbd.apb_match' />
+		<connection source='uvm_test_top.ve.apb_ss_env.apb_uart0.monitor.uart_cover.vif' destination='design.apb_subsystem_top.uart_int0'/>
+		<connection source='uvm_test_top.ve.apb_ss_env.apb_uart0.monitor.uart_rx_out' destination='uvm_test_top.ve.apb_ss_env.apb_uart0.monitor.rx_scbd.uart_match' />
+		<connection source='uvm_test_top.ve.apb_ss_env.apb_uart0.monitor.uart_tx_out' destination='uvm_test_top.ve.apb_ss_env.apb_uart0.monitor.tx_scbd.uart_add' />
+		<connection source='uvm_test_top.ve.apb_ss_env.apb_uart0.reg_sequencer.rsp_export' destination='uvm_test_top.ve.apb_ss_env.apb_uart0.reg_sequencer.sqr_rsp_analysis_fifo.analysis_export' />
+		<connection source='uvm_test_top.ve.apb_ss_env.apb_uart1.monitor.vif' destination='design.apb_subsystem_top.uart_int1'/>
+		<connection source='uvm_test_top.ve.apb_ss_env.apb_uart1.monitor.apb_out' destination='uvm_test_top.ve.apb_ss_env.apb_uart1.monitor.rx_scbd.apb_add' />
+		<connection source='uvm_test_top.ve.apb_ss_env.apb_uart1.monitor.apb_out' destination='uvm_test_top.ve.apb_ss_env.apb_uart1.monitor.tx_scbd.apb_match' />
+		<connection source='uvm_test_top.ve.apb_ss_env.apb_uart1.monitor.uart_cover.vif' destination='design.apb_subsystem_top.uart_int1'/>
+		<connection source='uvm_test_top.ve.apb_ss_env.apb_uart1.monitor.uart_rx_out' destination='uvm_test_top.ve.apb_ss_env.apb_uart1.monitor.rx_scbd.uart_match' />
+		<connection source='uvm_test_top.ve.apb_ss_env.apb_uart1.monitor.uart_tx_out' destination='uvm_test_top.ve.apb_ss_env.apb_uart1.monitor.tx_scbd.uart_add' />
+		<connection source='uvm_test_top.ve.apb_ss_env.apb_uart1.reg_sequencer.rsp_export' destination='uvm_test_top.ve.apb_ss_env.apb_uart1.reg_sequencer.sqr_rsp_analysis_fifo.analysis_export' />
+		<connection source='uvm_test_top.ve.apb_ss_env.gpio_csr_out' destination='uvm_test_top.ve.gpio0.dut_csr_port_in' />
+		<connection source='uvm_test_top.ve.apb_ss_env.spi_csr_out' destination='uvm_test_top.ve.apb_ss_env.monitor.dut_csr_port_in' />
+		<connection source='uvm_test_top.ve.apb_ss_env.spi_csr_out' destination='uvm_test_top.ve.spi0.dut_csr_port_in' />
+		<connection source='uvm_test_top.ve.gpio0.gpio_if' destination='design.apb_subsystem_top.gpio_s0'/>
+		<connection source='uvm_test_top.ve.gpio0.agents[0].driver.gpio_if' destination='design.apb_subsystem_top.gpio_s0'/>
+		<connection source='uvm_test_top.ve.gpio0.agents[0].driver.sqr_pull_port' destination='uvm_test_top.ve.gpio0.agents[0].sequencer.seq_item_export' />
+		<connection source='uvm_test_top.ve.gpio0.agents[0].monitor.gpio_if' destination='design.apb_subsystem_top.gpio_s0'/>
+		<connection source='uvm_test_top.ve.gpio0.agents[0].sequencer.rsp_export' destination='uvm_test_top.ve.gpio0.agents[0].sequencer.sqr_rsp_analysis_fifo.analysis_export' />
+		<connection source='uvm_test_top.ve.spi0.spi_if' destination='design.apb_subsystem_top.spi_s0'/>
+		<connection source='uvm_test_top.ve.spi0.agents[0].driver.spi_if' destination='design.apb_subsystem_top.spi_s0'/>
+		<connection source='uvm_test_top.ve.spi0.agents[0].driver.sqr_pull_port' destination='uvm_test_top.ve.spi0.agents[0].sequencer.seq_item_export' />
+		<connection source='uvm_test_top.ve.spi0.agents[0].monitor.spi_if' destination='design.apb_subsystem_top.spi_s0'/>
+		<connection source='uvm_test_top.ve.spi0.agents[0].monitor.item_collected_port' destination='uvm_test_top.ve.apb_ss_env.monitor.rx_scbd.spi_match' />
+		<connection source='uvm_test_top.ve.spi0.agents[0].sequencer.rsp_export' destination='uvm_test_top.ve.spi0.agents[0].sequencer.sqr_rsp_analysis_fifo.analysis_export' />
+		<connection source='uvm_test_top.ve.uart0.vif' destination='design.apb_subsystem_top.uart_s0'/>
+		<connection source='uvm_test_top.ve.uart0.Rx.monitor.frame_collected_port' destination='uvm_test_top.ve.apb_ss_env.apb_uart0.monitor.uart_rx_in' />
+		<connection source='uvm_test_top.ve.uart0.Tx.driver.vif' destination='design.apb_subsystem_top.uart_s0'/>
+		<connection source='uvm_test_top.ve.uart0.Tx.driver.sqr_pull_port' destination='uvm_test_top.ve.uart0.Tx.sequencer.seq_item_export' />
+		<connection source='uvm_test_top.ve.uart0.Tx.monitor.frame_collected_port' destination='uvm_test_top.ve.apb_ss_env.apb_uart0.monitor.uart_tx_in' />
+		<connection source='uvm_test_top.ve.uart0.Tx.sequencer.rsp_export' destination='uvm_test_top.ve.uart0.Tx.sequencer.sqr_rsp_analysis_fifo.analysis_export' />
+		<connection source='uvm_test_top.ve.uart1.vif' destination='design.apb_subsystem_top.uart_s1'/>
+		<connection source='uvm_test_top.ve.uart1.Rx.monitor.frame_collected_port' destination='uvm_test_top.ve.apb_ss_env.apb_uart1.monitor.uart_rx_in' />
+		<connection source='uvm_test_top.ve.uart1.Tx.driver.vif' destination='design.apb_subsystem_top.uart_s1'/>
+		<connection source='uvm_test_top.ve.uart1.Tx.driver.sqr_pull_port' destination='uvm_test_top.ve.uart1.Tx.sequencer.seq_item_export' />
+		<connection source='uvm_test_top.ve.uart1.Tx.monitor.frame_collected_port' destination='uvm_test_top.ve.apb_ss_env.apb_uart1.monitor.uart_tx_in' />
+		<connection source='uvm_test_top.ve.uart1.Tx.sequencer.rsp_export' destination='uvm_test_top.ve.uart1.Tx.sequencer.sqr_rsp_analysis_fifo.analysis_export' />
+		<connection source='uvm_test_top.ve.virtual_sequencer.rsp_export' destination='uvm_test_top.ve.virtual_sequencer.sqr_rsp_analysis_fifo.analysis_export' />
+	</connections>
+</component-hierarchy>

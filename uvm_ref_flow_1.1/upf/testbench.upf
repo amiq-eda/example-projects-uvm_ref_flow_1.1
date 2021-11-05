@@ -1,0 +1,5 @@
+#   Copyright 1999-2010 Cadence Design Systems, Inc.
+#   All Rights Reserved Worldwide
+
+set_design_top apb_subsystem_top
+load_upf ./upf/apb_subsystem.upf -scope u_socv/i_apb_subsystem

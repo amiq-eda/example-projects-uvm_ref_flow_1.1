@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>uvm_ref_flow_1.1</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>ro.amiq.dvt.MixedLangBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>ro.amiq.vlogdt.VlogNature</nature>
+		<nature>ro.amiq.dvt.pfnature</nature>
+		<nature>org.eclipse.dltk.tcl.core.nature</nature>
+	</natures>
+</projectDescription>

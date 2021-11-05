@@ -1,0 +1,27 @@
+ // Also see wavedrom embedded in comment of module spi_top 
+ 
+ { signal: [
+    ['Wishbone signals',
+         { name: "wb_clk_i",   wave: "P............" },
+         { name: "wb_adr_i",   wave: "x=..=..=..=..", data: ["00","01","02","03"] },
+         { name: "wb_dat_i",   wave: "x3.x4...x5..x", data: ["Data1","Data2","Data3"] },
+         { name: "wb_sel_i",   wave: "01.01...01..0" },
+         { name: "wb_we_i",    wave: "xl..........x" },
+         { name: "wb_stb_i",   wave: "LH.L..H.L.H.L",},
+         { name: "wb_cyc_i",   wave: "LH.L..H.L.H.L",},
+         { name: "wb_ack_o",   wave: "L.HL...HL..HL",},
+    ],
+         {},
+    ['SPI signals',     
+     { name: "ss_pad_o",   wave: "H.L.........H" },
+     { name: "sclk_pad_o", wave: "l...P.....l.." },
+     { name: "mosi_pad_o", wave: "4...444444...", data: ["MSB","","","","","", "LSB"] },
+     { name: "miso_pad_i", wave: "3...333333...", data: ["MSB","","","","","", "LSB"] },
+    ]
+    ],
+     config: {skin:'default', hscale: 1}, // Tip: replace 'default' with 'narrow' for compact diagram
+     head: {
+       text:'SPI Top Timing Diagram',
+       tick:0,
+     }
+ }
