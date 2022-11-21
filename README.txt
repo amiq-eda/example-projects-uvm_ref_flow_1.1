@@ -1,6 +1,5 @@
                         UVM Reference Flow - Ver 1.1
 	  	                  April 2012
-			new			
 
 ****************************************************************************** 
 Terms and Conditions For Use
