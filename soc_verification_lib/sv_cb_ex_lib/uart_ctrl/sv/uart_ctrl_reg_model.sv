@@ -273,6 +273,7 @@ class ua_ier_c extends uvm_reg;
   rand uvm_reg_field tx_data;
   rand uvm_reg_field rx_line_sts;
   rand uvm_reg_field mdm_sts;
+  rand uvm_reg_field foo_sts;
 
   virtual function void build();
     rx_data = uvm_reg_field::type_id::create("rx_data");
@@ -293,6 +294,7 @@ class ua_ier_c extends uvm_reg;
     tx_data : coverpoint tx_data.value[0:0];
     rx_line_sts : coverpoint rx_line_sts.value[0:0];
     mdm_sts : coverpoint mdm_sts.value[0:0];
+    foo_sts : coverpoint mdm_sts.value[0:0];
   endgroup
   covergroup rd_cg;
     option.per_instance=1;
