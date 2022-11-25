@@ -37,6 +37,12 @@ Notes       :
 `define MODM_CTRL 32'h04
 `define LINE_STAS 32'h05
 `define MODM_STAS 32'h06
+`define UNUSED 32'h06
+
+`define UNUSED1 32'h06
+
+`define UNUSED2 32'h06
+
 
 `define DIVD_LATCH1 32'h00
 `define DIVD_LATCH2 32'h01
